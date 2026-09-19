@@ -235,7 +235,11 @@ export const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ visible, onClo
 
   const brandOptions = type === 'motor' ? POPULAR_MOTOR_BRANDS : POPULAR_CAR_BRANDS;
   const categoryOptions = type === 'motor' ? MOTOR_CATEGORIES : CAR_CATEGORIES;
-  const years = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015];
+  const years = [
+    2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+    2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000,
+    1999, 1998, 1997, 1996, 1995, 1994, 1993, 1992, 1991, 1990, 1985, 1980, 1975, 1970,
+  ];
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={handleClose}>
@@ -479,8 +483,22 @@ export const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ visible, onClo
                       </View>
                     ) : null}
 
-                    {/* Year Selector */}
-                    <Text style={styles.inputLabel}>Tahun Pembuatan: {year}</Text>
+                    {/* Year Selector with Direct Input & Scroll Chips */}
+                    <View style={styles.yearHeaderRow}>
+                      <Text style={styles.inputLabelNoMargin}>Tahun Pembuatan Kendaraan</Text>
+                      <View style={styles.yearInputWrap}>
+                        <TextInput
+                          style={styles.yearInputBox}
+                          value={year.toString()}
+                          onChangeText={(val) => {
+                            const parsed = parseInt(val.replace(/\D/g, ''), 10);
+                            if (!isNaN(parsed)) setYear(parsed);
+                          }}
+                          keyboardType="numeric"
+                          maxLength={4}
+                        />
+                      </View>
+                    </View>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.yearScroll}>
                       {years.map((y) => (
                         <TouchableOpacity
@@ -904,10 +922,39 @@ const styles = StyleSheet.create({
   halfInput: {
     flex: 1,
   },
+  yearHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 6,
+  },
+  inputLabelNoMargin: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: COLORS.textSecondary,
+  },
+  yearInputWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  yearInputBox: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: RADIUS.md,
+    borderWidth: 1.5,
+    borderColor: COLORS.primary,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    fontSize: 13,
+    fontWeight: '800',
+    color: COLORS.primary,
+    textAlign: 'center',
+    minWidth: 64,
+  },
   yearScroll: {
     flexDirection: 'row',
     gap: 6,
-    marginBottom: 4,
+    marginBottom: 8,
   },
   yearChip: {
     paddingHorizontal: 12,
