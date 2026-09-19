@@ -90,27 +90,104 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
           </View>
         </View>
 
-        {/* Digital Speedometer Center Display */}
-        <View style={styles.speedoCluster}>
-          <View style={styles.speedoRingOuter}>
-            <View style={styles.speedoRingInner}>
-              <Ionicons name="speedometer" size={20} color={COLORS.primary} />
-              <Text style={styles.speedoOdometerNumber}>
-                {activeVehicle.currentKm.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
-              </Text>
-              <Text style={styles.speedoUnit}>KILOMETER</Text>
-            </View>
-          </View>
-
-          {/* Quick update button */}
-          <TouchableOpacity
-            style={styles.quickUpdateButton}
-            onPress={onOpenOdometer}
-            activeOpacity={0.8}
+        {/* Luxury Automotive Digital Instrument Cluster */}
+        <View style={styles.instrumentClusterCard}>
+          <LinearGradient
+            colors={['#0F172A', '#1E293B']}
+            style={styles.tftScreen}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
           >
-            <Ionicons name="pencil-sharp" size={13} color={COLORS.primary} />
-            <Text style={styles.quickUpdateText}>Perbarui Odometer</Text>
-          </TouchableOpacity>
+            {/* Cluster Top Status Bar */}
+            <View style={styles.clusterStatusBar}>
+              <View style={styles.clusterStatusItem}>
+                <View style={styles.statusLiveDot} />
+                <Text style={styles.clusterStatusText}>SYSTEM READY</Text>
+              </View>
+              <View style={styles.clusterStatusItem}>
+                <Ionicons name="flash" size={11} color="#38BDF8" />
+                <Text style={styles.clusterStatusText}>12.6V</Text>
+              </View>
+              <View style={styles.clusterStatusItem}>
+                <Ionicons name="shield-checkmark" size={11} color="#34C759" />
+                <Text style={styles.clusterStatusText}>HEALTH 100%</Text>
+              </View>
+            </View>
+
+            {/* Gauge Dial & Main Odometer Display */}
+            <View style={styles.clusterMainSection}>
+              {/* Left Gauge Power Bar */}
+              <View style={styles.gaugeSideColumn}>
+                <Text style={styles.gaugeSideLabel}>PWR</Text>
+                <View style={styles.gaugeBarTrack}>
+                  <View style={[styles.gaugeBarFill, { height: '65%', backgroundColor: '#38BDF8' }]} />
+                </View>
+                <Text style={styles.gaugeSideSub}>ECO</Text>
+              </View>
+
+              {/* Center Digital Odometer Display */}
+              <View style={styles.odometerCenterBox}>
+                <Text style={styles.odometerMicroLabel}>TOTAL ODOMETER</Text>
+
+                {/* Rolling Digit Barrel Row */}
+                <View style={styles.digitBarrelRow}>
+                  {activeVehicle.currentKm
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+                    .split('')
+                    .map((char, idx) => (
+                      <View
+                        key={idx}
+                        style={char === '.' ? styles.digitDotBarrel : styles.digitBarrel}
+                      >
+                        <Text
+                          style={char === '.' ? styles.digitDotText : styles.digitBarrelText}
+                        >
+                          {char}
+                        </Text>
+                        {char !== '.' && <View style={styles.digitGlossHighlight} />}
+                      </View>
+                    ))}
+                  <View style={styles.kmUnitBox}>
+                    <Text style={styles.kmUnitText}>KM</Text>
+                  </View>
+                </View>
+
+                {/* Sub-Trip & Telemetry */}
+                <View style={styles.tripRow}>
+                  <Text style={styles.tripText}>
+                    TRIP A: <Text style={styles.tripHighlight}>{formatKm(activeVehicle.currentKm % 1000)}</Text>
+                  </Text>
+                  <Text style={styles.tripDot}>•</Text>
+                  <Text style={styles.tripText}>
+                    KONDISI: <Text style={styles.tripHighlightGood}>PRIMA</Text>
+                  </Text>
+                </View>
+              </View>
+
+              {/* Right Gauge Fuel Bar */}
+              <View style={styles.gaugeSideColumn}>
+                <Text style={styles.gaugeSideLabel}>FUEL</Text>
+                <View style={styles.gaugeBarTrack}>
+                  <View style={[styles.gaugeBarFill, { height: '80%', backgroundColor: '#34C759' }]} />
+                </View>
+                <Text style={styles.gaugeSideSub}>
+                  {activeVehicle.fuelType === 'listrik' ? 'EV' : 'FULL'}
+                </Text>
+              </View>
+            </View>
+
+            {/* Quick Calibrate / Update Odometer Button */}
+            <TouchableOpacity
+              style={styles.cockpitUpdateButton}
+              onPress={onOpenOdometer}
+              activeOpacity={0.8}
+            >
+              <Ionicons name="speedometer" size={13} color="#38BDF8" />
+              <Text style={styles.cockpitUpdateText}>Perbarui Odometer</Text>
+              <Ionicons name="chevron-forward" size={12} color="#38BDF8" />
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
 
         {/* Specs Badges Row */}
@@ -450,54 +527,194 @@ const styles = StyleSheet.create({
     color: COLORS.textPrimary,
     letterSpacing: 0.5,
   },
-  speedoCluster: {
+  instrumentClusterCard: {
+    marginVertical: SPACING.sm,
+    borderRadius: RADIUS.lg,
+    overflow: 'hidden',
+    borderWidth: 1.5,
+    borderColor: '#334155',
+    ...SHADOWS.subtle,
+  },
+  tftScreen: {
+    paddingHorizontal: SPACING.md,
+    paddingTop: SPACING.md,
+    paddingBottom: SPACING.md,
+  },
+  clusterStatusBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: SPACING.xs,
+    paddingBottom: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.08)',
+    marginBottom: SPACING.sm,
   },
-  speedoRingOuter: {
-    width: 170,
-    height: 170,
-    borderRadius: 85,
-    borderWidth: 6,
-    borderColor: '#EAF2FD',
-    borderTopColor: COLORS.primary,
-    borderRightColor: COLORS.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FAFBFD',
-  },
-  speedoRingInner: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  speedoOdometerNumber: {
-    fontSize: 28,
-    fontWeight: '900',
-    color: COLORS.textPrimary,
-    marginTop: 4,
-    letterSpacing: 0.5,
-  },
-  speedoUnit: {
-    fontSize: 9,
-    fontWeight: '800',
-    color: COLORS.textMuted,
-    letterSpacing: 1,
-    marginTop: 2,
-  },
-  quickUpdateButton: {
+  clusterStatusItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.primaryMuted,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: RADIUS.pill,
     gap: 4,
-    marginTop: SPACING.md,
   },
-  quickUpdateText: {
-    fontSize: 12,
+  statusLiveDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#34C759',
+  },
+  clusterStatusText: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: '#94A3B8',
+    letterSpacing: 0.8,
+  },
+  clusterMainSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: SPACING.xs,
+  },
+  gaugeSideColumn: {
+    alignItems: 'center',
+    width: 38,
+  },
+  gaugeSideLabel: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: '#64748B',
+    marginBottom: 4,
+  },
+  gaugeBarTrack: {
+    width: 10,
+    height: 48,
+    backgroundColor: '#090D16',
+    borderRadius: 4,
+    justifyContent: 'flex-end',
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#1E293B',
+  },
+  gaugeBarFill: {
+    width: '100%',
+    borderRadius: 3,
+  },
+  gaugeSideSub: {
+    fontSize: 8,
+    fontWeight: '800',
+    color: '#94A3B8',
+    marginTop: 4,
+  },
+  odometerCenterBox: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: SPACING.xs,
+  },
+  odometerMicroLabel: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: '#38BDF8',
+    letterSpacing: 1.5,
+    marginBottom: 6,
+  },
+  digitBarrelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#090D16',
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: RADIUS.md,
+    borderWidth: 1.5,
+    borderColor: '#1E293B',
+    gap: 3,
+  },
+  digitBarrel: {
+    width: 28,
+    height: 38,
+    backgroundColor: '#131D31',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#293548',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  digitBarrelText: {
+    fontSize: 22,
+    fontWeight: '900',
+    color: '#F8FAFC',
+    letterSpacing: 0,
+  },
+  digitDotBarrel: {
+    width: 10,
+    height: 38,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: 6,
+  },
+  digitDotText: {
+    fontSize: 22,
+    fontWeight: '900',
+    color: '#38BDF8',
+  },
+  digitGlossHighlight: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: '45%',
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  kmUnitBox: {
+    paddingLeft: 4,
+  },
+  kmUnitText: {
+    fontSize: 11,
+    fontWeight: '900',
+    color: '#38BDF8',
+    letterSpacing: 0.5,
+  },
+  tripRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 8,
+  },
+  tripText: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#64748B',
+  },
+  tripHighlight: {
+    color: '#E2E8F0',
     fontWeight: '700',
-    color: COLORS.primary,
+  },
+  tripHighlightGood: {
+    color: '#34C759',
+    fontWeight: '800',
+  },
+  tripDot: {
+    color: '#475569',
+    fontSize: 10,
+  },
+  cockpitUpdateButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(56, 189, 248, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.3)',
+    borderRadius: RADIUS.pill,
+    paddingVertical: 7,
+    paddingHorizontal: 14,
+    gap: 6,
+    marginTop: SPACING.md,
+    alignSelf: 'center',
+  },
+  cockpitUpdateText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#38BDF8',
   },
   specChipsRow: {
     flexDirection: 'row',
