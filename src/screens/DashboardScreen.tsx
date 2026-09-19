@@ -48,7 +48,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
       case 'overdue':
         return COLORS.danger;
       case 'warning':
-        return COLORS.warningOrange;
+        return COLORS.warning;
       default:
         return COLORS.success;
     }
@@ -77,18 +77,12 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
       contentContainerStyle={styles.contentContainer}
       showsVerticalScrollIndicator={false}
     >
-      {/* Hero Vehicle Card with iOS Glassmorphism styling */}
-      <LinearGradient
-        colors={COLORS.gradientHero}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.heroCard}
-      >
+      {/* Cockpit Digital Speedometer Hero Card */}
+      <View style={styles.heroCard}>
+        {/* Top Header of Hero Card */}
         <View style={styles.heroTopRow}>
           <View>
-            <Text style={styles.heroBrandText}>
-              {activeVehicle.brand.toUpperCase()}
-            </Text>
+            <Text style={styles.heroBrandText}>{activeVehicle.brand.toUpperCase()}</Text>
             <Text style={styles.heroVehicleName}>{activeVehicle.name}</Text>
           </View>
           <View style={styles.plateBadge}>
@@ -96,50 +90,55 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
           </View>
         </View>
 
-        {/* Odometer Display */}
-        <View style={styles.odometerDisplayContainer}>
-          <View>
-            <Text style={styles.odometerSubLabel}>TOTAL JARAK TEMPUH</Text>
-            <Text style={styles.odometerBigNumber}>
-              {formatKm(activeVehicle.currentKm)}
-            </Text>
+        {/* Digital Speedometer Center Display */}
+        <View style={styles.speedoCluster}>
+          <View style={styles.speedoRingOuter}>
+            <View style={styles.speedoRingInner}>
+              <Ionicons name="speedometer" size={20} color={COLORS.primary} />
+              <Text style={styles.speedoOdometerNumber}>
+                {activeVehicle.currentKm.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+              </Text>
+              <Text style={styles.speedoUnit}>KILOMETER</Text>
+            </View>
           </View>
+
+          {/* Quick update button */}
           <TouchableOpacity
-            style={styles.quickUpdateOdoButton}
+            style={styles.quickUpdateButton}
             onPress={onOpenOdometer}
             activeOpacity={0.8}
           >
-            <Ionicons name="speedometer-outline" size={16} color="#FFFFFF" />
-            <Text style={styles.quickUpdateOdoText}>Update KM</Text>
+            <Ionicons name="pencil-sharp" size={13} color={COLORS.primary} />
+            <Text style={styles.quickUpdateText}>Perbarui Odometer</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Vehicle spec chips */}
+        {/* Specs Badges Row */}
         <View style={styles.specChipsRow}>
           <View style={styles.specChip}>
             <Ionicons
               name={activeVehicle.type === 'motor' ? 'bicycle' : 'car-sport'}
               size={12}
-              color={COLORS.primaryLight}
+              color={COLORS.primary}
             />
             <Text style={styles.specChipText}>
               {activeVehicle.type === 'motor' ? 'Motor' : 'Mobil'}
             </Text>
           </View>
+
           <View style={styles.specChip}>
-            <Ionicons name="color-palette-outline" size={12} color={COLORS.cyan} />
+            <Ionicons name="color-palette-outline" size={12} color={COLORS.textSecondary} />
             <Text style={styles.specChipText}>{activeVehicle.color}</Text>
           </View>
+
           <View style={styles.specChip}>
-            <Ionicons name="flame-outline" size={12} color={COLORS.warningOrange} />
+            <Ionicons name="flame" size={12} color={COLORS.warning} />
             <Text style={styles.specChipText}>
-              {activeVehicle.fuelType === 'pertamax'
-                ? 'Pertamax'
-                : activeVehicle.fuelType.toUpperCase()}
+              {activeVehicle.fuelType.toUpperCase()}
             </Text>
           </View>
         </View>
-      </LinearGradient>
+      </View>
 
       {/* Urgent Warning Banner if any maintenance is due */}
       {urgentItems.length > 0 && (
@@ -149,11 +148,11 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
           activeOpacity={0.85}
         >
           <View style={styles.alertIconCircle}>
-            <Ionicons name="alert-circle" size={20} color={COLORS.warningOrange} />
+            <Ionicons name="warning" size={18} color={COLORS.warning} />
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.alertTitle}>
-              {urgentItems.length} Komponen Perlu Diperhatikan!
+              {urgentItems.length} Komponen Perlu Perhatian!
             </Text>
             <Text style={styles.alertDescription} numberOfLines={1}>
               {urgentItems[0].item.name}:{' '}
@@ -162,76 +161,64 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                 : `Sisa ${urgentItems[0].kmRemaining} km lagi`}
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={18} color={COLORS.textSecondary} />
+          <Ionicons name="chevron-forward" size={16} color={COLORS.textMuted} />
         </TouchableOpacity>
       )}
 
-      {/* Quick Action Shortcuts */}
-      <View style={styles.actionButtonsRow}>
+      {/* Sleek Minimalist Quick Actions (Replacing the 4 big colorful circles!) */}
+      <View style={styles.quickActionBar}>
         <TouchableOpacity
-          style={styles.actionButton}
+          style={styles.actionPill}
           onPress={onOpenAddFuel}
-          activeOpacity={0.8}
+          activeOpacity={0.7}
         >
-          <LinearGradient
-            colors={['#0A84FF', '#0055D4']}
-            style={styles.actionIconCircle}
-          >
-            <Ionicons name="water" size={20} color="#FFFFFF" />
-          </LinearGradient>
-          <Text style={styles.actionButtonLabel}>Isi Bensin</Text>
+          <View style={[styles.actionIconDot, { backgroundColor: '#EBF4FF' }]}>
+            <Ionicons name="water" size={15} color={COLORS.primary} />
+          </View>
+          <Text style={styles.actionPillText}>Isi BBM</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.actionButton}
+          style={styles.actionPill}
           onPress={onOpenAddService}
-          activeOpacity={0.8}
+          activeOpacity={0.7}
         >
-          <LinearGradient
-            colors={['#BF5AF2', '#8F26C9']}
-            style={styles.actionIconCircle}
-          >
-            <Ionicons name="construct" size={20} color="#FFFFFF" />
-          </LinearGradient>
-          <Text style={styles.actionButtonLabel}>Catat Servis</Text>
+          <View style={[styles.actionIconDot, { backgroundColor: '#F6ECFA' }]}>
+            <Ionicons name="construct" size={15} color={COLORS.purple} />
+          </View>
+          <Text style={styles.actionPillText}>Servis</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.actionButton}
+          style={styles.actionPill}
           onPress={onOpenOdometer}
-          activeOpacity={0.8}
+          activeOpacity={0.7}
         >
-          <LinearGradient
-            colors={['#30D158', '#1E8E3E']}
-            style={styles.actionIconCircle}
-          >
-            <Ionicons name="speedometer" size={20} color="#FFFFFF" />
-          </LinearGradient>
-          <Text style={styles.actionButtonLabel}>Update KM</Text>
+          <View style={[styles.actionIconDot, { backgroundColor: '#EAF8EE' }]}>
+            <Ionicons name="speedometer" size={15} color={COLORS.success} />
+          </View>
+          <Text style={styles.actionPillText}>Catat KM</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.actionButton}
+          style={styles.actionPill}
           onPress={() => onNavigateToTab('stats')}
-          activeOpacity={0.8}
+          activeOpacity={0.7}
         >
-          <LinearGradient
-            colors={['#FF9F0A', '#D47400']}
-            style={styles.actionIconCircle}
-          >
-            <Ionicons name="pie-chart" size={20} color="#FFFFFF" />
-          </LinearGradient>
-          <Text style={styles.actionButtonLabel}>Analitik</Text>
+          <View style={[styles.actionIconDot, { backgroundColor: '#FFF5E6' }]}>
+            <Ionicons name="bar-chart" size={15} color={COLORS.warning} />
+          </View>
+          <Text style={styles.actionPillText}>Analitik</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Maintenance & Component Health Status List */}
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Status Komponen & Servis</Text>
-        <Text style={styles.sectionSub}>Ketuk untuk melihat detail atau reset</Text>
+      {/* Maintenance & Component Health Status List (Compact Apple Card Style) */}
+      <View style={styles.sectionHeaderRow}>
+        <Text style={styles.sectionTitle}>Status Servis & Komponen</Text>
+        <Text style={styles.sectionSub}>Ketuk untuk detail / reset</Text>
       </View>
 
-      <View style={styles.maintenanceGrid}>
+      <View style={styles.maintenanceList}>
         {activeVehicleMaintenanceStatuses.map((statusItem) => {
           const { item, kmRemaining, daysRemaining, percentUsed, status } = statusItem;
           const statusColor = getStatusColor(status);
@@ -241,19 +228,19 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               key={item.id}
               style={styles.maintCard}
               onPress={() => setSelectedStatusItem(statusItem)}
-              activeOpacity={0.75}
+              activeOpacity={0.7}
             >
               <View style={styles.maintCardTop}>
-                <View style={styles.maintCardIconName}>
+                <View style={styles.maintIconName}>
                   <View
                     style={[
-                      styles.maintIconWrapper,
-                      { backgroundColor: `${statusColor}20` },
+                      styles.maintIconCircle,
+                      { backgroundColor: `${statusColor}14` },
                     ]}
                   >
                     <Ionicons
                       name={getCategoryIcon(item.category) as any}
-                      size={18}
+                      size={17}
                       color={statusColor}
                     />
                   </View>
@@ -263,17 +250,24 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                     </Text>
                     <Text style={styles.maintItemCategory}>
                       {item.category === 'tax'
-                        ? 'Pajak Kendaraan'
+                        ? 'Pajak STNK'
                         : `Interval: ${item.intervalKm > 0 ? formatKm(item.intervalKm) : `${item.intervalMonths} Bulan`}`}
                     </Text>
                   </View>
                 </View>
 
-                {/* Status Indicator Pill */}
+                {/* Status Pill Badge */}
                 <View
                   style={[
                     styles.statusPill,
-                    { backgroundColor: `${statusColor}18`, borderColor: `${statusColor}40` },
+                    {
+                      backgroundColor:
+                        status === 'overdue'
+                          ? COLORS.dangerMuted
+                          : status === 'warning'
+                          ? COLORS.warningMuted
+                          : COLORS.successMuted,
+                    },
                   ]}
                 >
                   <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
@@ -287,8 +281,8 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                 </View>
               </View>
 
-              {/* Progress Bar */}
-              <View style={styles.progressBarBg}>
+              {/* Progress Track */}
+              <View style={styles.progressBarTrack}>
                 <View
                   style={[
                     styles.progressBarFill,
@@ -300,7 +294,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                 />
               </View>
 
-              {/* Card Footer with remaining info */}
+              {/* Footer info */}
               <View style={styles.maintCardFooter}>
                 <Text style={styles.maintFooterText}>
                   {item.intervalKm > 0 ? (
@@ -314,7 +308,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                   ) : item.targetDate ? (
                     daysRemaining <= 0 ? (
                       <Text style={{ color: COLORS.danger, fontWeight: '700' }}>
-                        Pajak jatuh tempo!
+                        Jatuh tempo!
                       </Text>
                     ) : (
                       `Jatuh tempo: ${daysRemaining} hari lagi`
@@ -325,7 +319,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                 </Text>
 
                 <Text style={styles.maintLastServiced}>
-                  Servis: {formatDateShort(item.lastReplacedDate)}
+                  Terakhir: {formatDateShort(item.lastReplacedDate)}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -333,20 +327,22 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
         })}
       </View>
 
-      {/* Quick Summary Cards: Recent Fuel and Recent Service */}
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Aktivitas Terkini</Text>
+      {/* Quick Activity Snippets */}
+      <View style={styles.sectionHeaderRow}>
+        <Text style={styles.sectionTitle}>Aktivitas Terakhir</Text>
       </View>
 
       <View style={styles.recentRow}>
         {/* Recent Fuel */}
         <View style={styles.recentCard}>
           <View style={styles.recentHeader}>
-            <Ionicons name="water-outline" size={16} color={COLORS.primary} />
+            <View style={[styles.smallIconCircle, { backgroundColor: COLORS.primaryMuted }]}>
+              <Ionicons name="water" size={13} color={COLORS.primary} />
+            </View>
             <Text style={styles.recentTitle}>BBM Terakhir</Text>
           </View>
           {activeVehicleFuelLogs.length > 0 ? (
-            <View style={{ marginTop: 6 }}>
+            <View style={{ marginTop: 4 }}>
               <Text style={styles.recentValue}>
                 {formatRupiah(activeVehicleFuelLogs[0].totalPrice)}
               </Text>
@@ -363,18 +359,20 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               ) : null}
             </View>
           ) : (
-            <Text style={styles.emptyText}>Belum ada catatan BBM</Text>
+            <Text style={styles.emptyText}>Belum ada catatan</Text>
           )}
         </View>
 
         {/* Recent Service */}
         <View style={styles.recentCard}>
           <View style={styles.recentHeader}>
-            <Ionicons name="construct-outline" size={16} color={COLORS.purple} />
+            <View style={[styles.smallIconCircle, { backgroundColor: COLORS.purpleMuted }]}>
+              <Ionicons name="construct" size={13} color={COLORS.purple} />
+            </View>
             <Text style={styles.recentTitle}>Servis Terakhir</Text>
           </View>
           {activeVehicleServiceLogs.length > 0 ? (
-            <View style={{ marginTop: 6 }}>
+            <View style={{ marginTop: 4 }}>
               <Text style={styles.recentValue}>
                 {formatRupiah(activeVehicleServiceLogs[0].totalCost)}
               </Text>
@@ -386,7 +384,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               </Text>
             </View>
           ) : (
-            <Text style={styles.emptyText}>Belum ada riwayat servis</Text>
+            <Text style={styles.emptyText}>Belum ada catatan</Text>
           )}
         </View>
       </View>
@@ -408,175 +406,207 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.xs,
     paddingBottom: 40,
   },
   heroCard: {
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.xxl,
-    padding: SPACING.xl,
+    padding: SPACING.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
-    marginBottom: SPACING.lg,
-    ...SHADOWS.glowPrimary,
+    borderColor: COLORS.cardBorder,
+    marginBottom: SPACING.md,
+    ...SHADOWS.card,
   },
   heroTopRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.md,
   },
   heroBrandText: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '800',
-    color: COLORS.primaryLight,
-    letterSpacing: 1.5,
+    color: COLORS.primary,
+    letterSpacing: 1.2,
   },
   heroVehicleName: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '800',
     color: COLORS.textPrimary,
     marginTop: 2,
   },
   plateBadge: {
-    backgroundColor: 'rgba(0, 0, 0, 0.45)',
-    paddingHorizontal: SPACING.md,
-    paddingVertical: 6,
+    backgroundColor: '#F1F5F9',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.15)',
+    borderColor: '#E2E8F0',
   },
   plateBadgeText: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '800',
-    color: '#FFFFFF',
-    letterSpacing: 1,
-  },
-  odometerDisplayContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    borderRadius: RADIUS.lg,
-    padding: SPACING.md,
-    marginBottom: SPACING.md,
-  },
-  odometerSubLabel: {
-    fontSize: 9,
-    fontWeight: '700',
-    color: COLORS.textSecondary,
+    color: COLORS.textPrimary,
     letterSpacing: 0.5,
   },
-  odometerBigNumber: {
-    fontSize: 24,
+  speedoCluster: {
+    alignItems: 'center',
+    marginVertical: SPACING.xs,
+  },
+  speedoRingOuter: {
+    width: 170,
+    height: 170,
+    borderRadius: 85,
+    borderWidth: 6,
+    borderColor: '#EAF2FD',
+    borderTopColor: COLORS.primary,
+    borderRightColor: COLORS.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FAFBFD',
+  },
+  speedoRingInner: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  speedoOdometerNumber: {
+    fontSize: 28,
     fontWeight: '900',
     color: COLORS.textPrimary,
+    marginTop: 4,
+    letterSpacing: 0.5,
+  },
+  speedoUnit: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: COLORS.textMuted,
+    letterSpacing: 1,
     marginTop: 2,
   },
-  quickUpdateOdoButton: {
+  quickUpdateButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.primary,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: 8,
-    borderRadius: RADIUS.md,
-    gap: 6,
+    backgroundColor: COLORS.primaryMuted,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: RADIUS.pill,
+    gap: 4,
+    marginTop: SPACING.md,
   },
-  quickUpdateOdoText: {
+  quickUpdateText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: COLORS.primary,
   },
   specChipsRow: {
     flexDirection: 'row',
+    justifyContent: 'center',
     gap: SPACING.sm,
+    marginTop: SPACING.md,
+    paddingTop: SPACING.sm,
+    borderTopWidth: 1,
+    borderTopColor: '#F1F5F9',
   },
   specChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    paddingHorizontal: SPACING.md,
-    paddingVertical: 4,
+    backgroundColor: '#F8FAFC',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     borderRadius: RADIUS.pill,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
     gap: 5,
   },
   specChipText: {
     fontSize: 11,
     fontWeight: '600',
-    color: COLORS.textLight,
+    color: COLORS.textSecondary,
   },
   alertBanner: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 159, 10, 0.12)',
+    backgroundColor: COLORS.warningMuted,
     borderWidth: 1,
-    borderColor: 'rgba(255, 159, 10, 0.35)',
-    borderRadius: RADIUS.xl,
+    borderColor: 'rgba(255, 149, 0, 0.25)',
+    borderRadius: RADIUS.lg,
     padding: SPACING.md,
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.md,
     gap: SPACING.md,
   },
   alertIconCircle: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: 'rgba(255, 159, 10, 0.2)',
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 149, 0, 0.2)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   alertTitle: {
     fontSize: 13,
     fontWeight: '700',
-    color: COLORS.warningOrange,
+    color: '#D97706',
   },
   alertDescription: {
-    fontSize: 12,
-    color: COLORS.textLight,
+    fontSize: 11,
+    color: COLORS.textSecondary,
     marginTop: 2,
   },
-  actionButtonsRow: {
+  quickActionBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: SPACING.xl,
-  },
-  actionButton: {
-    alignItems: 'center',
-    width: '23%',
-  },
-  actionIconCircle: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 6,
+    backgroundColor: '#FFFFFF',
+    padding: 6,
+    borderRadius: RADIUS.xl,
+    borderWidth: 1,
+    borderColor: COLORS.cardBorder,
+    marginBottom: SPACING.lg,
     ...SHADOWS.subtle,
   },
-  actionButtonLabel: {
-    fontSize: 11,
-    fontWeight: '600',
-    color: COLORS.textLight,
-    textAlign: 'center',
+  actionPill: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    gap: 6,
   },
-  sectionHeader: {
-    marginBottom: SPACING.md,
+  actionIconDot: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  actionPillText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: COLORS.textPrimary,
+  },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    marginBottom: SPACING.sm,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '800',
     color: COLORS.textPrimary,
   },
   sectionSub: {
-    fontSize: 12,
-    color: COLORS.textSecondary,
-    marginTop: 2,
+    fontSize: 11,
+    color: COLORS.textMuted,
   },
-  maintenanceGrid: {
-    gap: SPACING.md,
-    marginBottom: SPACING.xl,
+  maintenanceList: {
+    gap: SPACING.sm + 2,
+    marginBottom: SPACING.lg,
   },
   maintCard: {
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.lg,
-    padding: SPACING.lg,
+    padding: SPACING.md,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
     ...SHADOWS.subtle,
@@ -584,56 +614,55 @@ const styles = StyleSheet.create({
   maintCardTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: SPACING.md,
+    alignItems: 'center',
+    marginBottom: SPACING.sm,
   },
-  maintCardIconName: {
+  maintIconName: {
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
   },
-  maintIconWrapper: {
-    width: 38,
-    height: 38,
-    borderRadius: 12,
+  maintIconCircle: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: SPACING.md,
+    marginRight: 10,
   },
   maintItemName: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '700',
     color: COLORS.textPrimary,
   },
   maintItemCategory: {
     fontSize: 11,
     color: COLORS.textSecondary,
-    marginTop: 2,
+    marginTop: 1,
   },
   statusPill: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingVertical: 3,
     borderRadius: RADIUS.pill,
-    borderWidth: 1,
-    gap: 5,
+    gap: 4,
   },
   statusDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
   },
   statusPillText: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '700',
   },
-  progressBarBg: {
-    height: 6,
-    backgroundColor: COLORS.cardBackgroundSecondary,
+  progressBarTrack: {
+    height: 5,
+    backgroundColor: '#F1F5F9',
     borderRadius: 3,
     overflow: 'hidden',
-    marginBottom: SPACING.sm,
+    marginVertical: 4,
   },
   progressBarFill: {
     height: '100%',
@@ -643,42 +672,51 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 4,
   },
   maintFooterText: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '600',
-    color: COLORS.textLight,
+    color: COLORS.textSecondary,
   },
   maintLastServiced: {
-    fontSize: 11,
+    fontSize: 10,
     color: COLORS.textMuted,
   },
   recentRow: {
     flexDirection: 'row',
     gap: SPACING.md,
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.md,
   },
   recentCard: {
     flex: 1,
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     padding: SPACING.md,
     borderRadius: RADIUS.lg,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
+    ...SHADOWS.subtle,
   },
   recentHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginBottom: 4,
+    marginBottom: 2,
+  },
+  smallIconCircle: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   recentTitle: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
     color: COLORS.textSecondary,
   },
   recentValue: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '800',
     color: COLORS.textPrimary,
   },
@@ -690,15 +728,15 @@ const styles = StyleSheet.create({
   recentSubDate: {
     fontSize: 10,
     color: COLORS.textMuted,
-    marginTop: 2,
+    marginTop: 1,
   },
   efficiencyBadge: {
-    backgroundColor: 'rgba(48, 209, 88, 0.15)',
+    backgroundColor: COLORS.successMuted,
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: RADIUS.sm,
     alignSelf: 'flex-start',
-    marginTop: 6,
+    marginTop: 4,
   },
   efficiencyBadgeText: {
     fontSize: 10,
@@ -708,6 +746,6 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 11,
     color: COLORS.textMuted,
-    marginTop: 8,
+    marginTop: 6,
   },
 });

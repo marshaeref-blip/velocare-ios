@@ -1,54 +1,56 @@
 export const COLORS = {
-  // Backgrounds
-  background: '#090D16',
-  cardBackground: '#121826',
-  cardBackgroundSecondary: '#182235',
-  cardBorder: 'rgba(255, 255, 255, 0.08)',
-  cardBorderActive: 'rgba(0, 122, 255, 0.35)',
+  // Pure Clean Apple Light Backgrounds
+  background: '#F4F6FA',
+  backgroundSecondary: '#FFFFFF',
+  cardBackground: '#FFFFFF',
+  cardBackgroundSecondary: '#F8FAFC',
+  cardBorder: '#E6EBF2',
+  cardBorderActive: '#007AFF',
 
-  // Apple HIG System Accents
-  primary: '#0A84FF', // iOS Blue (Dark Mode)
+  // Apple HIG Light Accents
+  primary: '#007AFF', // Apple iOS Blue
   primaryLight: '#47A3FF',
-  primaryMuted: 'rgba(10, 132, 255, 0.15)',
+  primaryMuted: '#EBF4FF',
 
-  success: '#30D158', // iOS Green
-  successMuted: 'rgba(48, 209, 88, 0.15)',
+  success: '#34C759', // Apple Emerald Green
+  successMuted: '#EAF8EE',
 
-  warning: '#FFD60A', // iOS Yellow
-  warningOrange: '#FF9F0A', // iOS Orange
-  warningMuted: 'rgba(255, 159, 10, 0.15)',
+  warning: '#FF9500', // Apple Orange
+  warningOrange: '#FF9500',
+  warningMuted: '#FFF5E6',
 
-  danger: '#FF453A', // iOS Red
-  dangerMuted: 'rgba(255, 69, 58, 0.15)',
+  danger: '#FF3B30', // Apple Red
+  dangerMuted: '#FDEEEB',
 
-  purple: '#BF5AF2',
-  purpleMuted: 'rgba(191, 90, 242, 0.15)',
+  purple: '#AF52DE',
+  purpleMuted: '#F6ECFA',
 
-  cyan: '#64D2FF',
-  cyanMuted: 'rgba(100, 210, 255, 0.15)',
+  cyan: '#32ADE6',
+  cyanMuted: '#EBF7FD',
 
-  // Typography
-  textPrimary: '#F8FAFC',
-  textSecondary: '#94A3B8',
-  textMuted: '#64748B',
-  textLight: '#CBD5E1',
+  // Typography (Crisp Slate & Charcoal)
+  textPrimary: '#0F172A',
+  textSecondary: '#475569',
+  textMuted: '#94A3B8',
+  textLight: '#64748B',
 
   // UI Elements
-  inputBackground: '#1A2338',
-  inputBorder: 'rgba(255, 255, 255, 0.12)',
-  divider: 'rgba(255, 255, 255, 0.08)',
-  tabBarBackground: '#0D1322',
-  tabBarBorder: 'rgba(255, 255, 255, 0.07)',
-  tabBarActive: '#0A84FF',
-  tabBarInactive: '#64748B',
+  inputBackground: '#F1F5F9',
+  inputBorder: '#E2E8F0',
+  divider: '#E2E8F0',
+  tabBarBackground: '#FFFFFF',
+  tabBarBorder: '#E5E9F0',
+  tabBarActive: '#007AFF',
+  tabBarInactive: '#94A3B8',
 
-  // Gradients
-  gradientPrimary: ['#0A84FF', '#0055D4'] as const,
-  gradientGreen: ['#30D158', '#1B9A38'] as const,
-  gradientOrange: ['#FF9F0A', '#D47400'] as const,
-  gradientRed: ['#FF453A', '#C91D12'] as const,
-  gradientDarkCard: ['#141D2F', '#0E1524'] as const,
-  gradientHero: ['#16233B', '#0E1726'] as const,
+  // Gradients for Light Theme
+  gradientPrimary: ['#007AFF', '#0055D4'] as const,
+  gradientHero: ['#FFFFFF', '#F0F4FA'] as const,
+  gradientCockpit: ['#1E293B', '#0F172A'] as const, // Sleek dark digital cockpit inside white card
+  gradientCockpitLight: ['#FFFFFF', '#F6F8FC'] as const,
+  gradientGreen: ['#34C759', '#248A3D'] as const,
+  gradientOrange: ['#FF9500', '#D47400'] as const,
+  gradientRed: ['#FF3B30', '#C91D12'] as const,
 };
 
 export const SPACING = {
@@ -66,37 +68,44 @@ export const RADIUS = {
   md: 12,
   lg: 16,
   xl: 20,
-  xxl: 28,
+  xxl: 24,
   pill: 999,
 };
 
 export const SHADOWS = {
   subtle: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowColor: '#64748B',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  card: {
+    shadowColor: '#0F172A',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
     elevation: 3,
   },
   glowPrimary: {
-    shadowColor: '#0A84FF',
+    shadowColor: '#007AFF',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowOpacity: 0.25,
+    shadowRadius: 10,
+    elevation: 4,
   },
   glowSuccess: {
-    shadowColor: '#30D158',
+    shadowColor: '#34C759',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowOpacity: 0.25,
+    shadowRadius: 10,
+    elevation: 4,
   },
-  glowWarning: {
-    shadowColor: '#FF9F0A',
+  glowDanger: {
+    shadowColor: '#FF3B30',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowOpacity: 0.25,
+    shadowRadius: 10,
+    elevation: 4,
   },
 };

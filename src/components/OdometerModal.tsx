@@ -138,11 +138,11 @@ export const OdometerModal: React.FC<OdometerModalProps> = ({ visible, onClose }
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(15, 23, 42, 0.45)',
     justifyContent: 'flex-end',
   },
   sheet: {
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderTopLeftRadius: RADIUS.xxl,
     borderTopRightRadius: RADIUS.xxl,
     paddingHorizontal: SPACING.xl,
@@ -150,12 +150,12 @@ const styles = StyleSheet.create({
     paddingBottom: Platform.OS === 'ios' ? 40 : SPACING.xxl,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
-    ...SHADOWS.glowPrimary,
+    ...SHADOWS.card,
   },
   dragIndicator: {
     width: 40,
     height: 4,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#CBD5E1',
     borderRadius: 2,
     alignSelf: 'center',
     marginBottom: SPACING.md,
@@ -221,16 +221,16 @@ const styles = StyleSheet.create({
   quickButton: {
     flex: 1,
     paddingVertical: 10,
-    backgroundColor: COLORS.cardBackgroundSecondary,
+    backgroundColor: '#F1F5F9',
     borderRadius: RADIUS.md,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: COLORS.cardBorder,
+    borderColor: '#E2E8F0',
   },
   quickButtonText: {
     fontSize: 13,
-    fontWeight: '600',
-    color: COLORS.cyan,
+    fontWeight: '700',
+    color: COLORS.primary,
   },
   saveButton: {
     flexDirection: 'row',

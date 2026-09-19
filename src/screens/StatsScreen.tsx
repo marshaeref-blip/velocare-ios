@@ -66,12 +66,7 @@ export const StatsScreen: React.FC = () => {
       showsVerticalScrollIndicator={false}
     >
       {/* TCO Hero Card */}
-      <LinearGradient
-        colors={['#1E1B4B', '#0F172A']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.heroCard}
-      >
+      <View style={styles.heroCard}>
         <Text style={styles.heroLabel}>TOTAL BIAYA KEPEMILIKAN (TCO)</Text>
         <Text style={styles.heroTotal}>{formatRupiah(totalOwnershipCost)}</Text>
         <Text style={styles.heroSub}>
@@ -100,7 +95,7 @@ export const StatsScreen: React.FC = () => {
             </Text>
           </View>
         </View>
-      </LinearGradient>
+      </View>
 
       {/* Overview Stat Grid */}
       <View style={styles.sectionHeader}>
@@ -209,17 +204,18 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   heroCard: {
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.xxl,
     padding: SPACING.xl,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: COLORS.cardBorder,
     marginBottom: SPACING.xl,
-    ...SHADOWS.glowPrimary,
+    ...SHADOWS.card,
   },
   heroLabel: {
     fontSize: 10,
     fontWeight: '800',
-    color: COLORS.primaryLight,
+    color: COLORS.primary,
     letterSpacing: 1,
   },
   heroTotal: {
@@ -236,7 +232,7 @@ const styles = StyleSheet.create({
   breakdownBar: {
     height: 8,
     borderRadius: 4,
-    backgroundColor: COLORS.cardBackgroundSecondary,
+    backgroundColor: '#F1F5F9',
     flexDirection: 'row',
     overflow: 'hidden',
     marginTop: SPACING.lg,
@@ -266,7 +262,8 @@ const styles = StyleSheet.create({
   },
   legendText: {
     fontSize: 12,
-    color: COLORS.textLight,
+    color: COLORS.textSecondary,
+    fontWeight: '600',
   },
   sectionHeader: {
     marginBottom: SPACING.md,
@@ -284,7 +281,7 @@ const styles = StyleSheet.create({
   },
   statCard: {
     width: '47.5%',
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.lg,
     padding: SPACING.md,
     borderWidth: 1,
@@ -295,7 +292,7 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 10,
-    backgroundColor: COLORS.cardBackgroundSecondary,
+    backgroundColor: '#F1F5F9',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: SPACING.sm,
@@ -313,12 +310,13 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   taxCard: {
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.lg,
     padding: SPACING.lg,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
     marginBottom: SPACING.xl,
+    ...SHADOWS.subtle,
   },
   taxHeader: {
     flexDirection: 'row',
@@ -343,14 +341,15 @@ const styles = StyleSheet.create({
   taxRowValue: {
     fontSize: 13,
     fontWeight: '600',
-    color: COLORS.textLight,
+    color: COLORS.textPrimary,
   },
   appInfoCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.02)',
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.lg,
     padding: SPACING.lg,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
+    ...SHADOWS.subtle,
   },
   appTitleRow: {
     flexDirection: 'row',

@@ -32,12 +32,12 @@ export const Header: React.FC<HeaderProps> = ({
       <TouchableOpacity
         style={styles.vehiclePill}
         onPress={() => setIsDropdownOpen(true)}
-        activeOpacity={0.8}
+        activeOpacity={0.7}
       >
         <View style={styles.iconCircle}>
           <Ionicons
             name={activeVehicle.type === 'motor' ? 'bicycle' : 'car-sport'}
-            size={18}
+            size={16}
             color={COLORS.primary}
           />
         </View>
@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
             <Text style={styles.vehicleName} numberOfLines={1}>
               {activeVehicle.name}
             </Text>
-            <Ionicons name="chevron-down" size={14} color={COLORS.textSecondary} />
+            <Ionicons name="chevron-down" size={13} color={COLORS.textSecondary} />
           </View>
           <Text style={styles.plateNumber}>{activeVehicle.plateNumber}</Text>
         </View>
@@ -59,14 +59,12 @@ export const Header: React.FC<HeaderProps> = ({
         onPress={onOpenOdometerModal}
         activeOpacity={0.75}
       >
-        <Ionicons name="speedometer-outline" size={15} color={COLORS.cyan} />
+        <Ionicons name="speedometer-outline" size={16} color={COLORS.primary} />
         <View style={styles.odometerTextContainer}>
           <Text style={styles.odometerLabel}>ODOMETER</Text>
           <Text style={styles.odometerValue}>{formatKm(activeVehicle.currentKm)}</Text>
         </View>
-        <View style={styles.editIconBadge}>
-          <Ionicons name="pencil" size={10} color={COLORS.textPrimary} />
-        </View>
+        <Ionicons name="pencil" size={11} color={COLORS.textMuted} />
       </TouchableOpacity>
 
       {/* Switcher Modal */}
@@ -167,19 +165,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.lg,
-    paddingVertical: SPACING.md,
+    paddingVertical: SPACING.sm + 2,
     backgroundColor: COLORS.background,
   },
   vehiclePill: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.cardBackground,
-    paddingVertical: SPACING.xs + 2,
+    backgroundColor: '#FFFFFF',
+    paddingVertical: 6,
     paddingHorizontal: SPACING.md,
     borderRadius: RADIUS.pill,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
-    maxWidth: '55%',
+    maxWidth: '58%',
     ...SHADOWS.subtle,
   },
   iconCircle: {
@@ -189,7 +187,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primaryMuted,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: SPACING.sm,
+    marginRight: 8,
   },
   vehicleInfo: {
     justifyContent: 'center',
@@ -200,7 +198,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   vehicleName: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
     color: COLORS.textPrimary,
     maxWidth: 110,
@@ -208,17 +206,17 @@ const styles = StyleSheet.create({
   plateNumber: {
     fontSize: 11,
     color: COLORS.textSecondary,
-    fontWeight: '500',
+    fontWeight: '600',
   },
   odometerBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     paddingVertical: 6,
     paddingHorizontal: SPACING.md,
-    borderRadius: RADIUS.lg,
+    borderRadius: RADIUS.pill,
     borderWidth: 1,
-    borderColor: 'rgba(100, 210, 255, 0.25)',
+    borderColor: COLORS.cardBorder,
     gap: 6,
     ...SHADOWS.subtle,
   },
@@ -227,38 +225,29 @@ const styles = StyleSheet.create({
   },
   odometerLabel: {
     fontSize: 8,
-    fontWeight: '700',
-    color: COLORS.cyan,
+    fontWeight: '800',
+    color: COLORS.primary,
     letterSpacing: 0.5,
   },
   odometerValue: {
-    fontSize: 13,
-    fontWeight: '700',
+    fontSize: 12,
+    fontWeight: '800',
     color: COLORS.textPrimary,
-  },
-  editIconBadge: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 2,
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.65)',
+    backgroundColor: 'rgba(15, 23, 42, 0.4)',
     justifyContent: 'flex-start',
     paddingTop: 80,
     paddingHorizontal: SPACING.lg,
   },
   dropdownCard: {
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.xl,
     padding: SPACING.lg,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
-    ...SHADOWS.glowPrimary,
+    ...SHADOWS.card,
   },
   dropdownHeader: {
     flexDirection: 'row',
@@ -271,7 +260,7 @@ const styles = StyleSheet.create({
   },
   dropdownTitle: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '800',
     color: COLORS.textPrimary,
   },
   vehicleOption: {
@@ -284,21 +273,19 @@ const styles = StyleSheet.create({
     gap: SPACING.md,
   },
   vehicleOptionSelected: {
-    backgroundColor: 'rgba(10, 132, 255, 0.08)',
-    borderWidth: 1,
-    borderColor: 'rgba(10, 132, 255, 0.3)',
+    backgroundColor: COLORS.primaryMuted,
   },
   optionIconCircle: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: COLORS.cardBackgroundSecondary,
+    backgroundColor: '#F1F5F9',
     justifyContent: 'center',
     alignItems: 'center',
   },
   optionName: {
-    fontSize: 15,
-    fontWeight: '600',
+    fontSize: 14,
+    fontWeight: '700',
     color: COLORS.textPrimary,
   },
   optionSub: {
@@ -313,14 +300,12 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.md,
     marginTop: SPACING.sm,
     borderRadius: RADIUS.md,
-    borderWidth: 1,
-    borderColor: COLORS.primaryMuted,
-    backgroundColor: 'rgba(10, 132, 255, 0.05)',
+    backgroundColor: COLORS.primaryMuted,
     gap: 6,
   },
   addVehicleText: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 13,
+    fontWeight: '700',
     color: COLORS.primary,
   },
 });

@@ -121,7 +121,7 @@ const MainNavigation: React.FC = () => {
 
   return (
     <View style={[styles.mainWrapper, { paddingTop: insets.top }]}>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
 
       {/* iOS App Top Header */}
       <Header

@@ -205,17 +205,18 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   vehicleCard: {
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.xl,
     padding: SPACING.lg,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
     marginBottom: SPACING.md,
-    ...SHADOWS.subtle,
+    ...SHADOWS.card,
   },
   vehicleCardActive: {
     borderColor: COLORS.primary,
-    backgroundColor: '#111A2E',
+    borderWidth: 2,
+    backgroundColor: '#FFFFFF',
   },
   cardHeader: {
     flexDirection: 'row',
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: COLORS.cardBackgroundSecondary,
+    backgroundColor: '#F1F5F9',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -266,8 +267,10 @@ const styles = StyleSheet.create({
   specsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: '#F8FAFC',
     borderRadius: RADIUS.md,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
     padding: SPACING.md,
     marginBottom: SPACING.md,
   },
@@ -293,7 +296,7 @@ const styles = StyleSheet.create({
   },
   selectPrompt: {
     fontSize: 11,
-    fontWeight: '600',
-    color: COLORS.primaryLight,
+    fontWeight: '700',
+    color: COLORS.primary,
   },
 });

@@ -300,11 +300,11 @@ export const AddServiceModal: React.FC<AddServiceModalProps> = ({ visible, onClo
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(15, 23, 42, 0.45)',
     justifyContent: 'flex-end',
   },
   sheet: {
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderTopLeftRadius: RADIUS.xxl,
     borderTopRightRadius: RADIUS.xxl,
     paddingHorizontal: SPACING.xl,
@@ -312,12 +312,12 @@ const styles = StyleSheet.create({
     maxHeight: '92%',
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
-    ...SHADOWS.glowPrimary,
+    ...SHADOWS.card,
   },
   dragIndicator: {
     width: 40,
     height: 4,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#CBD5E1',
     borderRadius: 2,
     alignSelf: 'center',
     marginBottom: SPACING.md,
@@ -354,15 +354,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
     paddingHorizontal: SPACING.md,
-    backgroundColor: COLORS.cardBackgroundSecondary,
+    backgroundColor: '#F8FAFC',
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: COLORS.cardBorder,
+    borderColor: '#E2E8F0',
     gap: 6,
   },
   categoryCardSelected: {
     borderColor: COLORS.primary,
-    backgroundColor: 'rgba(10, 132, 255, 0.15)',
+    backgroundColor: COLORS.primaryMuted,
   },
   categoryLabel: {
     fontSize: 12,
@@ -393,10 +393,10 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.inputBackground,
+    backgroundColor: '#F1F5F9',
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: COLORS.inputBorder,
+    borderColor: '#E2E8F0',
     paddingHorizontal: SPACING.md,
     paddingVertical: 10,
     gap: 8,
@@ -414,11 +414,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   itemsChecklist: {
-    backgroundColor: COLORS.cardBackgroundSecondary,
+    backgroundColor: '#F8FAFC',
     borderRadius: RADIUS.md,
     padding: SPACING.sm,
     borderWidth: 1,
-    borderColor: COLORS.cardBorder,
+    borderColor: '#E2E8F0',
     gap: 4,
     marginBottom: SPACING.xs,
   },
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   checkItemSelected: {
-    backgroundColor: 'rgba(10, 132, 255, 0.08)',
+    backgroundColor: COLORS.primaryMuted,
   },
   checkItemText: {
     fontSize: 13,

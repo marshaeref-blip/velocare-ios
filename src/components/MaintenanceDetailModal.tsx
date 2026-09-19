@@ -217,11 +217,11 @@ export const MaintenanceDetailModal: React.FC<MaintenanceDetailModalProps> = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(15, 23, 42, 0.45)',
     justifyContent: 'flex-end',
   },
   sheet: {
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderTopLeftRadius: RADIUS.xxl,
     borderTopRightRadius: RADIUS.xxl,
     paddingHorizontal: SPACING.xl,
@@ -229,12 +229,12 @@ const styles = StyleSheet.create({
     paddingBottom: Platform.OS === 'ios' ? 40 : SPACING.xxl,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
-    ...SHADOWS.glowPrimary,
+    ...SHADOWS.card,
   },
   dragIndicator: {
     width: 40,
     height: 4,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#CBD5E1',
     borderRadius: 2,
     alignSelf: 'center',
     marginBottom: SPACING.md,
@@ -275,11 +275,11 @@ const styles = StyleSheet.create({
   },
   metricCard: {
     flex: 1,
-    backgroundColor: COLORS.cardBackgroundSecondary,
+    backgroundColor: '#F8FAFC',
     padding: SPACING.md,
     borderRadius: RADIUS.lg,
     borderWidth: 1,
-    borderColor: COLORS.cardBorder,
+    borderColor: '#E2E8F0',
   },
   metricLabel: {
     fontSize: 10,
@@ -298,11 +298,11 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   infoCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: '#F8FAFC',
     borderRadius: RADIUS.md,
     padding: SPACING.md,
     borderWidth: 1,
-    borderColor: COLORS.cardBorder,
+    borderColor: '#E2E8F0',
     marginBottom: SPACING.lg,
   },
   infoRow: {
@@ -335,10 +335,10 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
   },
   smallInput: {
-    backgroundColor: COLORS.inputBackground,
+    backgroundColor: '#F1F5F9',
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: COLORS.inputBorder,
+    borderColor: '#E2E8F0',
     paddingHorizontal: SPACING.md,
     paddingVertical: 10,
     fontSize: 13,

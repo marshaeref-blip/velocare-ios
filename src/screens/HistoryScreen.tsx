@@ -220,13 +220,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.xl,
     padding: SPACING.lg,
     borderWidth: 1,
     borderColor: COLORS.cardBorder,
     marginBottom: SPACING.md,
-    ...SHADOWS.subtle,
+    ...SHADOWS.card,
   },
   summaryLeft: {
     flex: 1,
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
   summaryLabel: {
     fontSize: 10,
     fontWeight: '800',
-    color: COLORS.primaryLight,
+    color: COLORS.primary,
     letterSpacing: 0.5,
   },
   summaryTotal: {
@@ -271,12 +271,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.md,
     paddingVertical: 6,
     borderRadius: RADIUS.pill,
-    backgroundColor: COLORS.cardBackgroundSecondary,
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: COLORS.cardBorder,
+    borderColor: '#E2E8F0',
   },
   filterChipActive: {
-    backgroundColor: 'rgba(10, 132, 255, 0.15)',
+    backgroundColor: COLORS.primaryMuted,
     borderColor: COLORS.primary,
   },
   filterChipText: {
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   logCard: {
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.lg,
     padding: SPACING.lg,
     borderWidth: 1,
@@ -329,8 +329,10 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   itemsContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: '#F8FAFC',
     borderRadius: RADIUS.md,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
     padding: SPACING.md,
     marginVertical: SPACING.sm,
   },
@@ -348,18 +350,18 @@ const styles = StyleSheet.create({
   partTag: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.cardBackgroundSecondary,
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: RADIUS.sm,
     gap: 4,
     borderWidth: 1,
-    borderColor: COLORS.cardBorder,
+    borderColor: '#E2E8F0',
   },
   partTagText: {
     fontSize: 11,
-    color: COLORS.textLight,
-    fontWeight: '500',
+    color: COLORS.textPrimary,
+    fontWeight: '600',
   },
   logNotes: {
     fontSize: 11,
@@ -383,7 +385,7 @@ const styles = StyleSheet.create({
   costValue: {
     fontSize: 15,
     fontWeight: '800',
-    color: COLORS.primaryLight,
+    color: COLORS.primary,
   },
   emptyContainer: {
     alignItems: 'center',

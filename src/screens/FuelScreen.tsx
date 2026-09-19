@@ -77,16 +77,11 @@ export const FuelScreen: React.FC<FuelScreenProps> = ({ onOpenAddFuel }) => {
   const renderHeader = () => (
     <View style={styles.headerArea}>
       {/* Stats Summary Card */}
-      <LinearGradient
-        colors={['#162846', '#0E1728']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.statsCard}
-      >
+      <View style={styles.statsCard}>
         <View style={styles.statsHeaderRow}>
           <Text style={styles.statsCardTitle}>EFISIENSI & KONSUMSI BBM</Text>
           <View style={styles.fuelBadge}>
-            <Ionicons name="flame" size={12} color={COLORS.primaryLight} />
+            <Ionicons name="flame" size={12} color={COLORS.primary} />
             <Text style={styles.fuelBadgeText}>
               {activeVehicle.fuelType.toUpperCase()}
             </Text>
@@ -139,7 +134,7 @@ export const FuelScreen: React.FC<FuelScreenProps> = ({ onOpenAddFuel }) => {
             </Text>
           </View>
         </View>
-      </LinearGradient>
+      </View>
 
       {/* Add Fuel Action Row */}
       <View style={styles.actionRow}>
@@ -271,12 +266,13 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
   },
   statsCard: {
+    backgroundColor: '#FFFFFF',
     borderRadius: RADIUS.xl,
     padding: SPACING.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: COLORS.cardBorder,
     marginBottom: SPACING.lg,
-    ...SHADOWS.subtle,
+    ...SHADOWS.card,
   },
   statsHeaderRow: {
     flexDirection: 'row',
@@ -287,13 +283,13 @@ const styles = StyleSheet.create({
   statsCardTitle: {
     fontSize: 10,
     fontWeight: '800',
-    color: COLORS.primaryLight,
+    color: COLORS.primary,
     letterSpacing: 1,
   },
   fuelBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(10, 132, 255, 0.15)',
+    backgroundColor: COLORS.primaryMuted,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: RADIUS.pill,
@@ -302,7 +298,7 @@ const styles = StyleSheet.create({
   fuelBadgeText: {
     fontSize: 10,
     fontWeight: '700',
-    color: COLORS.primaryLight,
+    color: COLORS.primary,
   },
   statsGrid: {
     flexDirection: 'row',
@@ -337,7 +333,7 @@ const styles = StyleSheet.create({
   statUnit: {
     fontSize: 13,
     fontWeight: '700',
-    color: COLORS.primaryLight,
+    color: COLORS.primary,
   },
   statHint: {
     fontSize: 10,
@@ -347,7 +343,9 @@ const styles = StyleSheet.create({
   statsFooter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    backgroundColor: '#F8FAFC',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
     padding: SPACING.md,
     borderRadius: RADIUS.md,
   },
